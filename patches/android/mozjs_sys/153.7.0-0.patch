@@ -1,0 +1,11 @@
+--- a/build.rs
++++ b/build.rs
+@@ -489,6 +489,8 @@
+     }
+     if let Some(cxxstdlib) = env::var("CXXSTDLIB").ok() {
+         println!("cargo:rustc-link-lib={cxxstdlib}");
++    } else if target.contains("android") {
++        println!("cargo:rustc-link-lib=c++_shared");
+     } else if target.contains("apple") || target.contains("freebsd") || target.contains("ohos") {
+         println!("cargo:rustc-link-lib=c++");
+     } else if target.contains("windows") && target.contains("gnu") {
